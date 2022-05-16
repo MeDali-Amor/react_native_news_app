@@ -4,20 +4,32 @@ import { Text, View, FlatList, SafeAreaView } from "react-native";
 import { Header, FocusedStatusBar, ArticleCard } from "../components";
 import { COLORS, NFTData } from "../constants";
 const Home = () => {
-    const [dataList, setDataList] = useState([]);
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await axios.get(
-                    "http://localhost/drupalwebsite/api/articles"
-                );
-                setDataList(res.data);
-            } catch (error) {
-                setDataList([]);
-            }
-        };
-        fetchData();
-    }, []);
+    const [dataList, setDataList] = useState(NFTData);
+    const handleSearch = (value) => {
+        if (!value.length) return setDataList(NFTData);
+        const filteredData = NFTData.filter((item) =>
+            item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+        );
+        if (filteredData.length) {
+            setDataList(filteredData);
+        } else {
+            setDataList(NFTData);
+        }
+    };
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const res = await axios.get(
+    //                 "http://localhost/drupalwebsite/api/articles"
+    //             );
+    //             setDataList(res.data);
+    //         } catch (error) {
+    //             setDataList([]);
+    //         }
+    //     };
+    //     fetchData();
+    // }, []);
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <FocusedStatusBar background={COLORS.primary} />
@@ -26,9 +38,9 @@ const Home = () => {
                     <FlatList
                         data={dataList}
                         renderItem={({ item }) => <ArticleCard data={item} />}
-                        // keyExtractor={(item) => item.id}
+                        keyExtractor={(item) => item.id}
                         showsVerticalScrollIndicator={false}
-                        ListHeaderComponent={<Header />}
+                        ListHeaderComponent={<Header onSearch={handleSearch} />}
                     />
                 </View>
                 <View

@@ -5,12 +5,16 @@ import { useFonts } from "expo-font";
 import Home from "./screens/Home";
 import Article from "./screens/Article";
 export default function App() {
+    // const fetchFonts = async () =>
+    //     await Font.loadAsync({
+    //         "Inter-Black": require("./assets/fonts/Inter-Black.otf"),
+    //     });
     const [loaded] = useFonts({
-        InterBold: require("./assets/fonts/Inter-Bold.ttf"),
-        InterSemiBold: require("./assets/fonts/Inter-SemiBold.ttf"),
-        InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
-        InterRegular: require("./assets/fonts/Inter-Regular.ttf"),
-        InterLight: require("./assets/fonts/Inter-Light.ttf"),
+        "Inter-Bold": require("./assets/fonts/Inter-Bold.ttf"),
+        "Inter-SemiBold": require("./assets/fonts/Inter-SemiBold.ttf"),
+        "Inter-Medium": require("./assets/fonts/Inter-Medium.ttf"),
+        "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
+        "Inter-Light": require("./assets/fonts/Inter-Light.ttf"),
     });
     const Stack = createStackNavigator();
     const theme = {
