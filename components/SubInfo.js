@@ -2,28 +2,29 @@ import { View, Text } from "react-native";
 import React from "react";
 import { FONTS, COLORS, SIZES, SHADOWS, assets } from "../constants";
 
-export const ArticleTitle = ({ title, subTitle, titleSize, subTitleSize }) => {
+export const ArticleTitle = ({ title }) => {
     return (
-        <View
-            style={
-                {
-                    // paddingLeft: SIZES.large,
-                }
-            }
-        >
+        <View>
             <Text
                 style={{
-                    fontFamily: FONTS.bold,
-                    fontSize: titleSize,
-                    color: COLORS.primary,
+                    // fontFamily: FONTS.bold,
+                    fontWeight: "bold",
+                    fontSize: SIZES.extraLarge,
+                    color: COLORS.white,
                 }}
             >
                 {title}
             </Text>
+        </View>
+    );
+};
+export const ArticleAuthor = ({ subTitle }) => {
+    return (
+        <View>
             <Text
                 style={{
-                    fontFamily: FONTS.regular,
-                    fontSize: subTitleSize,
+                    // fontFamily: FONTS.regular,
+                    fontSize: SIZES.small,
                     color: COLORS.primary,
                 }}
             >

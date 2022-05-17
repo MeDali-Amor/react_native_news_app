@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 import { ArticleTitle } from "./SubInfo";
 import { COLORS, SIZES, FONTS } from "../constants";
@@ -9,7 +9,8 @@ const ArticleDesc = ({ data }) => {
     const [readMore, setReadMore] = useState(false);
 
     return (
-        <>
+        <View style={{ height: "100%", paddingBottom: 30 }}>
+            {/* <ScrollView style={{ height: "100%", paddingBottom: 30 }}> */}
             <View
                 style={{
                     width: "100%",
@@ -27,15 +28,6 @@ const ArticleDesc = ({ data }) => {
             </View>
 
             <View style={{ marginVertical: SIZES.extraLarge * 1.5 }}>
-                <Text
-                    style={{
-                        fontSize: SIZES.font,
-                        fontFamily: FONTS.semiBold,
-                        color: COLORS.primary,
-                    }}
-                >
-                    Description
-                </Text>
                 <View
                     style={{
                         marginTop: SIZES.base,
@@ -49,9 +41,9 @@ const ArticleDesc = ({ data }) => {
                             lineHeight: SIZES.large,
                         }}
                     >
-                        {text}
-                        {!readMore && "..."}
-                        <Text
+                        {data.description}
+                        {/* {!readMore && "..."} */}
+                        {/* <Text
                             style={{
                                 color: COLORS.primary,
                                 fontSize: SIZES.small,
@@ -68,11 +60,12 @@ const ArticleDesc = ({ data }) => {
                             }}
                         >
                             {readMore ? " Show Less" : " Read More"}
-                        </Text>
+                        </Text> */}
                     </Text>
                 </View>
             </View>
-        </>
+            {/* </ScrollView> */}
+        </View>
     );
 };
 

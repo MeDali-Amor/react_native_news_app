@@ -4,6 +4,7 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import Home from "./screens/Home";
 import Article from "./screens/Article";
+import BottomTabs from "./components/BottomTabs";
 export default function App() {
     // const fetchFonts = async () =>
     //     await Font.loadAsync({
@@ -21,7 +22,7 @@ export default function App() {
         ...DefaultTheme,
         colors: {
             ...DefaultTheme.colors,
-            background: "transparent",
+            background: "#fff",
         },
     };
     if (!loaded) return null;
@@ -33,9 +34,11 @@ export default function App() {
                 }}
                 initialRouteName="Home"
             >
-                <Stack.Screen name="Home" component={Home} />
+                {/* <Stack.Screen name="Home" component={Home} /> */}
+                <Stack.Screen name="Home" component={BottomTabs} />
                 <Stack.Screen name="Article" component={Article} />
             </Stack.Navigator>
+            {/* <BottomTabs /> */}
         </NavigationContainer>
     );
 }

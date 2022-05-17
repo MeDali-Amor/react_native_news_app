@@ -42,7 +42,7 @@ export const RectangularButton = ({ minWhidth, fontSize, handlePress }) => {
         >
             <Text
                 style={{
-                    fontFamily: "Inter-SemiBold",
+                    // fontFamily: "Inter-SemiBold",
                     fontSize: fontSize,
                     color: COLORS.white,
                     textAlign: "center",
