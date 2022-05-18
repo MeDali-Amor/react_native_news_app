@@ -1,6 +1,4 @@
 import axios from "axios";
-import Constants from "expo-constants";
-
 import { useState, useEffect } from "react";
 import {
     Text,
@@ -9,13 +7,16 @@ import {
     SafeAreaView,
     Image,
     StyleSheet,
+    TouchableOpacity,
+    ScrollView,
 } from "react-native";
 import { Header, FocusedStatusBar, ArticleCard } from "../components";
-import { COLORS, Authors, assets } from "../constants";
+import { COLORS, Authors, assets, ArticlesData } from "../constants";
 
 const Home = () => {
     const [dataList, setDataList] = useState([]);
-    const uri = "https://b3a7-41-62-101-194.eu.ngrok.io";
+    const [status, setStatus] = useState("Trending");
+    const uri = "https://ab6f-102-156-218-43.eu.ngrok.io";
     const handleSearch = (value) => {
         let currentList = [...dataList];
         if (!value.length) return setDataList(currentList);
@@ -35,20 +36,51 @@ const Home = () => {
                 const res = await axios.get(
                     `${uri}/drupalwebsite/api/articles`
                 );
-
                 setDataList(res.data);
-                // console.log(res.data);
             } catch (error) {
                 setDataList(ArticlesData);
             }
         };
         fetchData();
     }, []);
+    const setStatusFilter = (status) => {
+        setStatus(status);
+    };
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <FocusedStatusBar backgroundColor={COLORS.gray} />
             <Header onSearch={handleSearch} />
             <AuthorsList />
+            {/* <HomeTabs /> */}
+            <View
+                style={{
+                    height: 50,
+                }}
+            >
+                <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                >
+                    {categories.map((el) => (
+                        <TouchableOpacity
+                            onPress={() => setStatusFilter(el.title)}
+                            key={el.id}
+                            style={{ marginHorizontal: 10 }}
+                        >
+                            <Text
+                                style={
+                                    status === el.title
+                                        ? styles.activeTab
+                                        : styles.tabText
+                                }
+                            >
+                                {el.title}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </View>
+            {/* <Text>{status}</Text> */}
             <View style={styles.homeContainer}>
                 {dataList.length > 0 && (
                     <View style={{ zIndex: 0 }}>
@@ -67,33 +99,6 @@ const Home = () => {
                         />
                     </View>
                 )}
-                {/* <View
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        zIndex: -1,
-                    }}
-                > */}
-                {/* <View
-                        style={{ height: 300, backgroundColor: COLORS.primary }}
-                    ></View> */}
-                {/* <Image
-                        source={assets.background}
-                        resizeMode="cover"
-                        style={{
-                            width: "100%",
-                            height: "100%",
-                            // borderTopLeftRadius: SIZES.font,
-                            // borderTopRightRadius: SIZES.font,
-                        }}
-                    />
-                    <View
-                        style={{ flex: 1, backgroundColor: COLORS.white }}
-                    ></View> */}
-                {/* </View> */}
             </View>
         </SafeAreaView>
     );
@@ -110,46 +115,21 @@ export const AuthorsList = () => {
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                // ListHeaderComponent={
-
-                // }
             />
         </View>
     );
 };
-const styles = StyleSheet.create({
-    homeContainer: {
-        flex: 1,
-        backgroundColor: COLORS.white,
-    },
-    Autherscontainer: {
-        backgroundColor: COLORS.white,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-    },
-});
+
 export const AuthorCirlceView = ({ data }) => {
     return (
         <View
             style={{
-                // width: 71,
-                // height: 71,
                 marginHorizontal: 15,
-                // borderWidth: 1,
-                // borderColor: "#494BA1",
-                // borderRadius: 50,
             }}
         >
             <Image
                 source={data.image}
                 resizeMode="cover"
-                // style={{
-                //     width: 70,
-                //     height: 70,
-                //     borderRadius: 50,
-                //     display: "block",
-                //     marginHorizontal: "auto",
-                // }}
                 style={{
                     width: 70,
                     height: 70,
@@ -162,3 +142,55 @@ export const AuthorCirlceView = ({ data }) => {
         </View>
     );
 };
+
+export const Tab = ({ data }) => {
+    return (
+        <View style={{ marginHorizontal: 5 }}>
+            {/* <TouchableOpacity
+                style={styles.tabStyle}
+                // onPress={console.log(data.id)}
+                onPressOut={PressHnadler(data.id)}
+            > */}
+            <Text style={styles.tabText}>{data.title}</Text>
+            {/* </TouchableOpacity> */}
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    homeContainer: {
+        flex: 1,
+        backgroundColor: COLORS.white,
+    },
+    Autherscontainer: {
+        backgroundColor: COLORS.white,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+    },
+    tabStyle: {
+        marginHorizontal: 10,
+    },
+    activeTab: {
+        color: "#494BA1",
+        fontSize: 16,
+        fontWeight: "700",
+        borderBottomWidth: 3,
+        paddingVertical: 8,
+        borderBottomColor: "#494BA1",
+        // borderEndWidth: 2,
+    },
+    tabText: {
+        color: COLORS.primary,
+        paddingVertical: 8,
+        fontSize: 15,
+        fontWeight: "600",
+    },
+});
+
+const categories = [
+    { id: "1", title: "Trending" },
+    { id: "2", title: "My topics" },
+    { id: "3", title: "Local news" },
+    { id: "4", title: "Fact check" },
+    { id: "5", title: "Discover" },
+];

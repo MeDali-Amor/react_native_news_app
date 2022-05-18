@@ -7,8 +7,8 @@ export const ArticleTitle = ({ title }) => {
         <View>
             <Text
                 style={{
-                    // fontFamily: FONTS.bold,
-                    fontWeight: "bold",
+                    fontFamily: "Roboto-Bold",
+                    // fontWeight: "bold",
                     fontSize: SIZES.extraLarge,
                     color: COLORS.white,
                 }}

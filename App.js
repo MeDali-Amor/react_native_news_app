@@ -5,17 +5,18 @@ import { useFonts } from "expo-font";
 import Home from "./screens/Home";
 import Article from "./screens/Article";
 import BottomTabs from "./components/BottomTabs";
+import BottomNavigationTabs from "./modules/navigation/BottomNavigationTabs";
 export default function App() {
     // const fetchFonts = async () =>
     //     await Font.loadAsync({
     //         "Inter-Black": require("./assets/fonts/Inter-Black.otf"),
     //     });
     const [loaded] = useFonts({
-        "Inter-Bold": require("./assets/fonts/Inter-Bold.ttf"),
-        "Inter-SemiBold": require("./assets/fonts/Inter-SemiBold.ttf"),
-        "Inter-Medium": require("./assets/fonts/Inter-Medium.ttf"),
-        "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
-        "Inter-Light": require("./assets/fonts/Inter-Light.ttf"),
+        "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
+        // "Roboto-SemiBold": require("./assets/fonts/"),
+        "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+        "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+        "Roboto-Light": require("./assets/fonts/Roboto-Light.ttf"),
     });
     const Stack = createStackNavigator();
     const theme = {
@@ -32,10 +33,10 @@ export default function App() {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="Home"
+                // initialRouteName="Home"
             >
                 {/* <Stack.Screen name="Home" component={Home} /> */}
-                <Stack.Screen name="Home" component={BottomTabs} />
+                <Stack.Screen name="Main" component={BottomNavigationTabs} />
                 <Stack.Screen name="Article" component={Article} />
             </Stack.Navigator>
             {/* <BottomTabs /> */}
